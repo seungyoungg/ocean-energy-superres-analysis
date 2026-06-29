@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environment
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Logs
+*.log
+nohup.out
+
+# Temporary outputs
+/tmp/
+tmp/
+.DS_Store
+Thumbs.db
+
+# Optional local large outputs
+outputs/
+figures/

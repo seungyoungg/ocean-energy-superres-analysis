@@ -1,0 +1,17 @@
+method,variable,input,output,status,elapsed_sec
+uniform,T0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/uniform/T0M_uniform_1km.csv,done,2.119925022125244
+uniform,S0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_염도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/uniform/S0M_uniform_1km.csv,done,2.1220362186431885
+uniform,T10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/uniform/T10M_uniform_1km.csv,done,2.856863498687744
+uniform,S10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수염도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/uniform/S10M_uniform_1km.csv,done,1.953691005706787
+bilinear,T0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/bilinear/T0M_bilinear_1km.csv,done,2.410475969314575
+bilinear,S0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_염도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/bilinear/S0M_bilinear_1km.csv,done,2.022521495819092
+bilinear,T10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/bilinear/T10M_bilinear_1km.csv,done,2.187565326690674
+bilinear,S10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수염도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/bilinear/S10M_bilinear_1km.csv,done,1.9786322116851807
+kriging,T0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/kriging/T0M_kriging_1km.csv,done,2.5815632343292236
+kriging,S0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_염도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/kriging/S0M_kriging_1km.csv,done,2.458923101425171
+kriging,T10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/kriging/T10M_kriging_1km.csv,done,2.598940134048462
+kriging,S10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수염도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/kriging/S10M_kriging_1km.csv,done,2.4073195457458496
+dip,T0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/dip/T0M_dip_1km.csv,done,2234.6840188503265
+dip,S0M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_염도_0m.csv,/home/srt/ocean_energy/Dataset/superres_1km/dip/S0M_dip_1km.csv,done,2205.8051974773407
+dip,T10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수온도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/dip/T10M_dip_1km.csv,done,2337.6668634414673
+dip,S10M,/home/srt/ocean_energy/Dataset/PNG_Port_Moresby_해수염도_10m.csv,/home/srt/ocean_energy/Dataset/superres_1km/dip/S10M_dip_1km.csv,done,2005.9415209293365

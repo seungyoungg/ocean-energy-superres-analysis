@@ -35,17 +35,25 @@ background 실행용 스크립트입니다.
 
 실행 예시
 ---------
-# 전체 방법 실행
-nohup python -u run_superres_background.py \
+# 저장소 기본 경로를 사용하는 전체 방법 실행
+# - 입력: <repo>/data/raw
+# - 출력: <repo>/data/superres_1km
+nohup python -u src/run_superres_background.py \
   > superres_background_max_resource.log 2>&1 &
 
+# 본인 PC/서버의 데이터 위치를 직접 지정하는 경우
+nohup python -u src/run_superres_background.py \
+  --input-dir /path/to/data/raw \
+  --out-dir /path/to/data/superres_1km \
+  > superres_background_custom_path.log 2>&1 &
+
 # CPU 기반 방법만 실행
-nohup python -u run_superres_background.py \
+nohup python -u src/run_superres_background.py \
   --methods uniform bilinear kriging \
   > superres_background_cpu.log 2>&1 &
 
 # 딥러닝 기반 방법만 실행
-nohup python -u run_superres_background.py \
+nohup python -u src/run_superres_background.py \
   --methods dip --dl-iters 300 \
   > superres_background_dl.log 2>&1 &
 """

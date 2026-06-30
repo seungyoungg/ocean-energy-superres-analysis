@@ -27,6 +27,8 @@ ocean_energy_superres_knu/
 │   └── run_superres_background.py
 ├── notebooks/
 │   └── ocean_energy_figures_02_45.ipynb
+├── outputs/
+│   └── REPORT_FIGURES_02_45/
 └── docs/
     └── DATA_DESCRIPTION.md
 ```
@@ -82,19 +84,109 @@ pip install -r requirements.txt
 
 GPU 기반 DIP 실행 시 CUDA 환경의 PyTorch가 필요합니다. CUDA가 없는 경우 CPU로 실행됩니다.
 
-## 4. How to Run
+## 4. Data Directory Setup
 
-저장소 루트에서 다음 명령어를 실행합니다.
+본 저장소의 Python 스크립트와 Jupyter 노트북은 기본적으로 아래 경로 구조를 사용합니다.
+
+```text
+Input raw data       : data/raw/
+Super-resolution data: data/superres_1km/
+Figure output        : outputs/REPORT_FIGURES_02_45/
+```
+
+따라서 가장 권장되는 방법은 저장소 루트 아래에 데이터를 다음과 같이 배치하는 것입니다.
+
+```text
+ocean_energy_superres_knu/
+├── data/
+│   ├── raw/
+│   │   ├── PNG_Port_Moresby_해수온도_0m.csv
+│   │   ├── PNG_Port_Moresby_해수온도_10m.csv
+│   │   ├── PNG_Port_Moresby_해수염도_0m.csv
+│   │   └── PNG_Port_Moresby_해수염도_10m.csv
+│   └── superres_1km/
+│       ├── uniform/
+│       ├── bilinear/
+│       ├── kriging/
+│       └── dip/
+```
+
+### Python script 경로 설정
+
+`src/run_superres_background.py`는 기본적으로 저장소 루트를 자동으로 인식하여 다음 경로를 사용합니다.
+
+```text
+Input : <repo>/data/raw/
+Output: <repo>/data/superres_1km/
+```
+
+기본 구조를 그대로 사용하는 경우 별도 수정 없이 저장소 루트에서 아래 명령어를 실행하면 됩니다.
 
 ```bash
 python src/run_superres_background.py
 ```
 
-기본적으로 다음 입력·출력 경로를 사용합니다.
+데이터가 다른 위치에 있는 경우에는 코드를 직접 수정하지 말고, 실행 시 `--input-dir`와 `--out-dir` 옵션으로 본인 환경의 경로를 지정하는 것을 권장합니다.
 
-```text
-Input : data/raw/
-Output: data/superres_1km/
+```bash
+python src/run_superres_background.py \
+  --input-dir /path/to/data/raw \
+  --out-dir /path/to/data/superres_1km
+```
+
+Windows 환경 예시는 다음과 같습니다.
+
+```bash
+python src/run_superres_background.py \
+  --input-dir "C:\\Users\\user\\ocean_energy_superres_knu\\data\\raw" \
+  --out-dir "C:\\Users\\user\\ocean_energy_superres_knu\\data\\superres_1km"
+```
+
+### Jupyter notebook 경로 설정
+
+`notebooks/ocean_energy_figures_02_45.ipynb`는 현재 작업 폴더 기준으로 `data/raw/` 폴더를 포함한 저장소 루트를 자동 탐색하도록 구성되어 있습니다.
+
+노트북 실행 전, Jupyter의 작업 폴더가 저장소 루트 또는 `notebooks/` 폴더인지 확인해 주세요. 일반적으로 아래 둘 중 하나의 방식으로 실행하면 됩니다.
+
+```bash
+# 저장소 루트에서 실행
+jupyter notebook notebooks/ocean_energy_figures_02_45.ipynb
+```
+
+또는
+
+```bash
+# notebooks 폴더로 이동 후 실행
+cd notebooks
+jupyter notebook ocean_energy_figures_02_45.ipynb
+```
+
+자동 경로 탐색이 실패하는 경우, 노트북 상단의 `데이터 및 출력 경로` 셀에서 `REPO_ROOT`를 본인 PC 또는 서버의 저장소 루트로 직접 수정해 주세요.
+
+```python
+# Windows 예시
+REPO_ROOT = Path(r"C:\Users\user\ocean_energy_superres_knu")
+
+# Linux/macOS 예시
+REPO_ROOT = Path("/home/user/ocean_energy_superres_knu")
+```
+
+그 아래 경로는 `REPO_ROOT`를 기준으로 자동 설정됩니다.
+
+```python
+RAW_DIR = REPO_ROOT / "data" / "raw"
+SUPERRES_ROOT = REPO_ROOT / "data" / "superres_1km"
+OUTDIR_BASE = REPO_ROOT / "outputs" / "REPORT_FIGURES_02_45"
+```
+
+기존 코드에 포함되어 있던 개인 PC 경로 예시(`/Users/datascience/...`, `C:\Users\datascience\...`, `G:\공유 드라이브\...`)는 공유 환경에서 재현성이 떨어질 수 있으므로, 본 배포 버전에서는 저장소 상대 경로 기반으로 정리하였습니다.
+
+## 5. How to Run
+
+저장소 루트에서 다음 명령어를 실행합니다.
+
+```bash
+python src/run_superres_background.py
 ```
 
 특정 방법만 실행하려면 다음과 같이 지정합니다.
@@ -115,7 +207,7 @@ python src/run_superres_background.py --methods dip --dl-iters 300
 python src/run_superres_background.py --overwrite
 ```
 
-## 5. Visualization
+## 6. Visualization
 
 시각화 코드는 아래 노트북에 정리되어 있습니다.
 
@@ -123,14 +215,21 @@ python src/run_superres_background.py --overwrite
 notebooks/ocean_energy_figures_02_45.ipynb
 ```
 
-노트북은 원본 자료와 1km 해상도 증강 결과를 활용하여 보고서 Figure 2–45에 해당하는 해양 물성 및 발전량 분포를 생성하는 용도입니다.
+노트북은 원본 자료와 1 km 해상도 증강 결과를 활용하여 보고서 Figure 2–45에 해당하는 해양 물성 및 발전량 분포를 생성하는 용도입니다.
 
-## 6. Notes
+Figure 결과는 기본적으로 아래 경로에 저장됩니다.
 
-- 본 저장소의 1km 결과는 고해상도 실측 Ground Truth가 없는 조건에서 생성된 해상도 증강 결과입니다.
+```text
+outputs/REPORT_FIGURES_02_45/figures/
+outputs/REPORT_FIGURES_02_45/csv/
+```
+
+## 7. Notes
+
+- 본 저장소의 1 km 결과는 고해상도 실측 Ground Truth가 없는 조건에서 생성된 해상도 증강 결과입니다.
 - 따라서 방법 간 비교는 절대 성능 평가보다는 공간 분포 변화와 발전량 추정 민감도 분석 관점에서 해석하는 것이 적절합니다.
 - DIP 결과는 Kriging 결과를 pseudo Ground Truth로 활용한 refinement 결과이므로, 독립적인 고해상도 관측 검증 결과로 해석해서는 안 됩니다.
 
-## 7. Recommended Citation in Reports
+## 8. Recommended Citation in Reports
 
 본 코드는 PNG Port Moresby 해역 해수 온도·염도 자료의 공간 해상도 증강 및 해양에너지 잠재량 분석을 위해 작성되었으며, 8×4 km 격자 자료를 1×1 km 격자로 확장하기 위해 Uniform, Bilinear, Kriging, Kriging-supervised 딥러닝 기반 refinement 방법을 적용하였습니다.
